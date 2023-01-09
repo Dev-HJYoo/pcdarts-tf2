@@ -10,7 +10,7 @@ from modules.losses import CrossEntropyLoss
 from modules.utils import (
     set_memory_growth, load_yaml, count_parameters_in_MB, ProgressBar,
     AvgrageMeter, accuracy)
-
+import time
 
 flags.DEFINE_string('cfg_path', './configs/pcdarts_cifar10_search.yaml',
                     'config file path')
@@ -18,6 +18,7 @@ flags.DEFINE_string('gpu', '0', 'which gpu to use')
 
 
 def main(_):
+
     # init
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
     os.environ['CUDA_VISIBLE_DEVICES'] = FLAGS.gpu
@@ -182,4 +183,9 @@ def main(_):
 
 
 if __name__ == '__main__':
+    # time
+    cur = time.time()
+
     app.run(main)
+
+    print('search time: {}'.format(round(time.time()-cur)))
